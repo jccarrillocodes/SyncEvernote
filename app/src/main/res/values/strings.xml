@@ -3,4 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="addnote">Guardar nota</string>
     <string name="refresh">Refrescar</string>
+    <string name="bad_credentials">Credenciales incorrectas</string>
+
 </resources>
