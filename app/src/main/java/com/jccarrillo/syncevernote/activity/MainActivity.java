@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import com.jccarrillo.syncevernote.R;
 import com.jccarrillo.syncevernote.fragment.LoginFragment;
+import com.jccarrillo.syncevernote.fragment.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showLoginFragment(){
-        navigateToFragment(new LoginFragment(),false);
+        navigateToFragment(new LoginFragment(), false);
+    }
+
+    public void showNoteListFragment(){
+        navigateToFragment(new MainFragment(), true);
     }
 }

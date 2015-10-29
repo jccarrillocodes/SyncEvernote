@@ -64,7 +64,8 @@ public class LoginFragment extends Fragment {
 
     private void everNoteLogin(){
         if( EvernoteSessionManager.getSession().isLoggedIn() ){
-
+            MainActivity parentActivity = (MainActivity)getActivity();
+            parentActivity.showNoteListFragment();
         } else
             EvernoteSessionManager.getSession().authenticate(getActivity());
     }

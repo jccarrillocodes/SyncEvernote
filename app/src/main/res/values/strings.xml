@@ -7,5 +7,6 @@
     <string name="login_access">Identificando usuario de Evernote</string>
     <string name="login_needed_account">Es necesario tener cuenta de EverNote</string>
     <string name="try_again">Volver a intentar</string>
+    <string name="list_error">No se pudo obtener las notas</string>
 
 </resources>
