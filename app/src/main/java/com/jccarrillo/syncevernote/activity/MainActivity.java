@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.jccarrillo.syncevernote.R;
+import com.jccarrillo.syncevernote.fragment.LoginFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if( savedInstanceState == null )
+            showLoginFragment();
     }
 
     @Override
@@ -67,7 +70,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if( mFragment != null )
-            mFragment.onActivityResult(requestCode,resultCode,data);
+            mFragment.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void showLoginFragment(){
+        navigateToFragment(new LoginFragment(),false);
     }
 }

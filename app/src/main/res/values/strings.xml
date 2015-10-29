@@ -4,5 +4,8 @@
     <string name="addnote">Guardar nota</string>
     <string name="refresh">Refrescar</string>
     <string name="bad_credentials">Credenciales incorrectas</string>
+    <string name="login_access">Identificando usuario de Evernote</string>
+    <string name="login_needed_account">Es necesario tener cuenta de EverNote</string>
+    <string name="try_again">Volver a intentar</string>
 
 </resources>
