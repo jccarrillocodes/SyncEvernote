@@ -15,20 +15,27 @@ import com.jccarrillo.syncevernote.R;
 import com.jccarrillo.syncevernote.fragment.AddNoteFragment;
 import com.jccarrillo.syncevernote.fragment.LoginFragment;
 import com.jccarrillo.syncevernote.fragment.MainFragment;
+import com.jccarrillo.syncevernote.manager.EvernoteSessionManager;
 
 public class MainActivity extends AppCompatActivity {
 
     private Fragment mFragment;
     private MenuItem mMenuItemRefresh;
     private MenuItem mMenuItemSave;
+    private MenuItem mMenuItemByDate;
+    private MenuItem mMenuItemByTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if( savedInstanceState == null )
-            showLoginFragment();
+        if( savedInstanceState == null ) {
+            if(EvernoteSessionManager.getSession().isLoggedIn())
+                showNoteListFragment();
+            else
+                showLoginFragment();
+        }
     }
 
     @Override
@@ -37,15 +44,21 @@ public class MainActivity extends AppCompatActivity {
 
         mMenuItemRefresh = menu.findItem(R.id.action_refresh);
         mMenuItemSave = menu.findItem(R.id.action_add);
+        mMenuItemByDate = menu.findItem(R.id.action_order_date);
+        mMenuItemByTitle = menu.findItem(R.id.action_order_title);
 
         return true;
     }
 
-    public void setupMenu( boolean refresh, boolean save ){
+    public void setupMenu( boolean refresh, boolean save, boolean orderByTitle, boolean orderByDate ){
         if(mMenuItemRefresh!=null)
             mMenuItemRefresh.setVisible(refresh);
         if(mMenuItemSave!=null)
             mMenuItemSave.setVisible(save);
+        if(mMenuItemByDate!=null)
+            mMenuItemByDate.setVisible(orderByDate);
+        if(mMenuItemByTitle!=null)
+            mMenuItemByTitle.setVisible(orderByTitle);
     }
 
     @Override

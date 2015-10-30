@@ -62,7 +62,7 @@ public class AddNoteFragment extends Fragment {
         btnVoice = (Button) view.findViewById(R.id.btnSpeak);
         llSaving = view.findViewById(R.id.llSaving);
 
-        ((MainActivity)getActivity()).setupMenu(false,true);
+        ((MainActivity)getActivity()).setupMenu(false,true,false,false);
     }
 
     private void linkListeners() {

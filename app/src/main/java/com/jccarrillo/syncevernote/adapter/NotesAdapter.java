@@ -34,6 +34,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    public List<Note> getList(){
+        return mList;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = mLayoutInflater.inflate(R.layout.item_note, viewGroup, false);

@@ -14,5 +14,7 @@
     <string name="addnote_error">Error añadiendo nota</string>
     <string name="addnote_title">Título</string>
     <string name="addnote_content">Cuerpo</string>
+    <string name="order_by_date">Ordenar por fecha</string>
+    <string name="order_by_title">Ordenar por título</string>
 
 </resources>

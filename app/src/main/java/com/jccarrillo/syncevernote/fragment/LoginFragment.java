@@ -47,7 +47,7 @@ public class LoginFragment extends Fragment {
         mTextFail = view.findViewById(R.id.linearLayout1);
         mButtonRetry = (Button) view.findViewById(R.id.buttonRetryLogin);
 
-        ((MainActivity)getActivity()).setupMenu(false,false);
+        ((MainActivity)getActivity()).setupMenu(false,false,false,false);
     }
 
     private void linkListeners(){

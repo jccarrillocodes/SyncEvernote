@@ -42,6 +42,8 @@ import com.jccarrillo.syncevernote.adapter.NotesAdapter;
 import com.jccarrillo.syncevernote.manager.EvernoteSessionManager;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -49,11 +51,15 @@ import java.util.List;
  */
 public class MainFragment extends Fragment {
 
+    private static final int ORDERTYPE_DATE = 0,
+                            ORDERTYPE_TITLE = 1;
+
     private RecyclerView mRecyclerView;
     private NotesAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private FloatingActionButton mActionButtonAdd;
     private View mLoading;
+    private int mOrderType = ORDERTYPE_DATE;
 
     @Nullable
     @Override
@@ -90,8 +96,16 @@ public class MainFragment extends Fragment {
 
         mLoading = view.findViewById(R.id.pbLoading);
 
-        ((MainActivity)getActivity()).setupMenu(true,false);
+        updateMenu();
+    }
 
+    private void updateMenu(){
+        ((MainActivity)getActivity()).setupMenu(
+                true,
+                false,
+                mOrderType != ORDERTYPE_TITLE,
+                mOrderType != ORDERTYPE_DATE
+        );
     }
 
     private void linkListeners(){
@@ -111,9 +125,31 @@ public class MainFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if( item.getItemId() == R.id.action_refresh )
-            populate();
+        switch (item.getItemId()){
+            case R.id.action_refresh:
+                populate();
+                break;
+            case R.id.action_order_date:
+                mOrderType = ORDERTYPE_DATE;
+                populateList();
+                break;
+            case R.id.action_order_title:
+                mOrderType = ORDERTYPE_TITLE;
+                populateList();
+                break;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void populateList(){
+        if( mAdapter != null )
+            populateList( mAdapter.getList() );
+    }
+
+    private void populateList( List<Note> list ){
+        Collections.sort(list, new NotesComparator(mOrderType));
+        mAdapter.setData(list);
+        updateMenu();
     }
 
     private EvernoteCallback<List<Notebook>> onNotesListBookCallBack = new EvernoteCallback<List<Notebook>>() {
@@ -129,6 +165,30 @@ public class MainFragment extends Fragment {
             mLoading.setVisibility(View.GONE);
         }
     };
+
+    public static class NotesComparator implements Comparator<Note> {
+        private int mOrdertype;
+
+        public NotesComparator( int orderType ){
+            super();
+            mOrdertype = orderType;
+        }
+
+
+        @Override
+        public int compare(Note lhs, Note rhs) {
+            switch (mOrdertype){
+                case ORDERTYPE_DATE:
+                    return lhs.getCreated() < rhs.getCreated() ? -1 :
+                            lhs.getCreated() > rhs.getCreated() ? 1 :
+                                    0;
+                case ORDERTYPE_TITLE:
+                    return lhs.getTitle().compareTo(rhs.getTitle());
+                default:
+                    return 0;
+            }
+        }
+    }
 
     private class AsyncLoadNotebooks extends AsyncTask<List<Notebook>,Void,List<Note>>{
 
@@ -168,7 +228,7 @@ public class MainFragment extends Fragment {
         protected void onPostExecute(List<Note> notes) {
             if( getActivity() != null ){
                 mLoading.setVisibility(View.GONE);
-                mAdapter.setData(notes);
+                populateList(notes);
             }
         }
     }
