@@ -8,8 +8,8 @@ Caso de prueba donde se va a utilizar la API de Evernote para obtener y crear no
 ## Casos
 - Inicio de sesión con login
 - Listado de notas creadas
-- TODO: ordenar notas por fecha
-- TODO: mostrar contenido de la nota
+- Ordenar notas por fecha
+- Mostrar contenido de la nota
 - Añadir nota
 - TODO: reconocimiento OCR
 
