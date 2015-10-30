@@ -8,5 +8,11 @@
     <string name="login_needed_account">Es necesario tener cuenta de EverNote</string>
     <string name="try_again">Volver a intentar</string>
     <string name="list_error">No se pudo obtener las notas</string>
+    <string name="voice_input">Voz</string>
+    <string name="voice_input_add">Dicta el cuerpo de la nota</string>
+    <string name="add_note_draw">Escribe aquí (OCR)</string>
+    <string name="addnote_error">Error añadiendo nota</string>
+    <string name="addnote_title">Título</string>
+    <string name="addnote_content">Cuerpo</string>
 
 </resources>
