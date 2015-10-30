@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.jccarrillo.syncevernote.R;
+import com.jccarrillo.syncevernote.fragment.AddNoteFragment;
 import com.jccarrillo.syncevernote.fragment.LoginFragment;
 import com.jccarrillo.syncevernote.fragment.MainFragment;
 
@@ -80,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showNoteListFragment(){
-        navigateToFragment(new MainFragment(), true);
+        navigateToFragment(new MainFragment(), false);
+    }
+
+    public void showAddNoteFragment(){
+        navigateToFragment(new AddNoteFragment(), true);
     }
 }

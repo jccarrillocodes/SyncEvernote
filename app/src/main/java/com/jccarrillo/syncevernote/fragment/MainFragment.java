@@ -176,7 +176,8 @@ public class MainFragment extends Fragment {
     private View.OnClickListener onActionButtonAddClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            MainActivity activity = (MainActivity) getActivity();
+            activity.showAddNoteFragment();
         }
     };
 }
