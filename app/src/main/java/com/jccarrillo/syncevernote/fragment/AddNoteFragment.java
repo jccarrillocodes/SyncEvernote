@@ -35,15 +35,25 @@ import java.util.ArrayList;
 public class AddNoteFragment extends Fragment {
 
     private static final int REQUEST_CODE = 0x1234;
+    public static final String BUNDLE_NOTE = "addnotefragment:note";
 
     private EditText etTitle;
     private EditText etContent;
     private Button btnVoice;
     private View llSaving;
+    private Note mPreviousNote;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if( getArguments().containsKey(BUNDLE_NOTE)){
+            try{
+                mPreviousNote = (Note) getArguments().getSerializable(BUNDLE_NOTE);
+            }catch (Exception e ){
+                e.printStackTrace();
+                // No se pudo castear a nota, revisa el código
+            }
+        }
         return inflater.inflate(R.layout.fragment_add_note, container, false);
     }
 
@@ -52,6 +62,7 @@ public class AddNoteFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initialize(view);
         linkListeners();
+        populate();
     }
 
     private void initialize( View view ){
@@ -62,11 +73,26 @@ public class AddNoteFragment extends Fragment {
         btnVoice = (Button) view.findViewById(R.id.btnSpeak);
         llSaving = view.findViewById(R.id.llSaving);
 
-        ((MainActivity)getActivity()).setupMenu(false,true,false,false);
+        ((MainActivity)getActivity()).setupMenu(
+                false,
+                mPreviousNote == null,
+                false,
+                false
+        );
     }
 
     private void linkListeners() {
         btnVoice.setOnClickListener(onBtnVoiceClick);
+    }
+
+    private void populate(){
+        if(mPreviousNote!=null){
+            etTitle.setText(mPreviousNote.getTitle());
+            etContent.setText(mPreviousNote.getContent());
+            etTitle.setKeyListener(null);
+            etContent.setKeyListener(null);
+            btnVoice.setEnabled(false);
+        }
     }
 
     private View.OnClickListener onBtnVoiceClick = new View.OnClickListener() {

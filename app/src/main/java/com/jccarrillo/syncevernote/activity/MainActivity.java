@@ -2,6 +2,7 @@ package com.jccarrillo.syncevernote.activity;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.evernote.edam.type.Note;
 import com.jccarrillo.syncevernote.R;
 import com.jccarrillo.syncevernote.fragment.AddNoteFragment;
 import com.jccarrillo.syncevernote.fragment.LoginFragment;
@@ -97,7 +99,17 @@ public class MainActivity extends AppCompatActivity {
         navigateToFragment(new MainFragment(), false);
     }
 
+    public void showAddNoteFragment(@Nullable Note note){
+        Bundle bundle = new Bundle();
+        if( note != null )
+            bundle.putSerializable(AddNoteFragment.BUNDLE_NOTE,note);
+
+        AddNoteFragment fragment = new AddNoteFragment();
+        fragment.setArguments(bundle);
+        navigateToFragment(fragment, true);
+    }
+
     public void showAddNoteFragment(){
-        navigateToFragment(new AddNoteFragment(), true);
+        showAddNoteFragment(null);
     }
 }

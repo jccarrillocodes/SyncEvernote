@@ -21,8 +21,14 @@ import java.util.List;
  */
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
+    public interface OnNoteClick {
+        public void onNoteClicked( Note note );
+    }
+
     private LayoutInflater mLayoutInflater;
     private List<Note> mList;
+    private OnNoteClick mOnNoteClick;
+
 
     public NotesAdapter( Context context ){
         mLayoutInflater = LayoutInflater.from(context);
@@ -38,19 +44,39 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return mList;
     }
 
+    public void setOnItemClickListener( OnNoteClick listener ){
+        mOnNoteClick = listener;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = mLayoutInflater.inflate(R.layout.item_note, viewGroup, false);
         ViewHolder vh = new ViewHolder(v);
+        v.setOnClickListener(mOnClickListener);
         return vh;
 
     }
+
+    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if( mOnNoteClick != null && v.getTag() != null ){
+                try {
+                    Note item = mList.get((Integer) v.getTag());
+                    mOnNoteClick.onNoteClicked(item);
+                }catch (Exception e ){
+
+                }
+            }
+        }
+    };
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         Note item = mList.get(i);
         viewHolder.mTitle.setText(item.getTitle() );
         viewHolder.mContent.setText(item.getContent());
+        viewHolder.itemView.setTag(i);
     }
 
     @Override

@@ -110,6 +110,7 @@ public class MainFragment extends Fragment {
 
     private void linkListeners(){
         mActionButtonAdd.setOnClickListener(onActionButtonAddClick);
+        mAdapter.setOnItemClickListener(onItemClicked);
     }
 
     /**
@@ -151,6 +152,13 @@ public class MainFragment extends Fragment {
         mAdapter.setData(list);
         updateMenu();
     }
+
+    private NotesAdapter.OnNoteClick onItemClicked = new NotesAdapter.OnNoteClick() {
+        @Override
+        public void onNoteClicked(Note note) {
+            ((MainActivity)getActivity()).showAddNoteFragment(note);
+        }
+    };
 
     private EvernoteCallback<List<Notebook>> onNotesListBookCallBack = new EvernoteCallback<List<Notebook>>() {
         @Override
