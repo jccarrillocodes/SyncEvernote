@@ -30,3 +30,13 @@ Se listan todas las notas de todos los Notebook, no se especifica a que Notebook
 ### Fragment para añadir nota
 Debido a tiempos, se descarta realizar integración con motor OCR, sin embargo, se ha añadido el motor de reconocimiento de voz de Google
 
+#Developed By
+
+* Juan Carlos Carrillo - http://jccarrillo.es - <cto@jccarrillo.es>
+
+
+#License
+
+    Copyright 2015 Juan Carlos Carrillo
+
+    Licensed under the GNU General Public License;
